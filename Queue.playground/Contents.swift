@@ -1,3 +1,9 @@
 import UIKit
 
-var str = "Hello, playground"
+public struct Queue<T> {
+    fileprivate var array = [T]()
+    
+    public var isEmpty: Bool {
+        return array.isEmpty
+    }
+}
