@@ -14,12 +14,13 @@ func mergeSort(_ array: [Int]) -> [Int] {
     
     let rightArray = mergeSort(Array(array[middleIndex..<array.count]))
     
-    return
+    // now we have everything so we combine it back together
+    return merge(leftArray: leftArray, rightArray: rightArray)
     
     
 }
 
-fileprivate func merge(leftArray:[Int], rightArray:[Int]) {
+fileprivate func merge(leftArray:[Int], rightArray:[Int]) -> [Int] {
     
     var leftIndex = 0
     var rightIndex = 0
@@ -27,4 +28,34 @@ fileprivate func merge(leftArray:[Int], rightArray:[Int]) {
     //create an array to return later and ensure that it has enough space from the start so as to save space in memory
     var orderedPile = [Int]()
     orderedPile.reserveCapacity(leftArray.count + rightArray.count)
+    
+    //while there is something in both arrays to compare then keep sorting
+    while leftIndex < leftArray.count && rightIndex < rightArray.count {
+        if leftArray[leftIndex] < rightArray[rightIndex] {
+            orderedPile.append(leftArray[leftIndex])
+            leftIndex += 1
+        } else if leftArray[leftIndex] > rightArray[rightIndex] {
+            orderedPile.append(rightArray[rightIndex])
+            rightIndex += 1
+        } else {
+            orderedPile.append(leftArray[leftIndex])
+            leftIndex += 1
+            orderedPile.append(rightArray[rightIndex])
+            rightIndex += 1
+        }
+    }
+    //these two statements catch anything should one array be longer than the other
+    while leftIndex < leftArray.count {
+        orderedPile.append(leftArray[leftIndex])
+        leftIndex += 1
+    }
+    
+    while rightIndex < rightArray.count {
+        orderedPile.append(rightArray[rightIndex])
+        rightIndex += 1
+    }
+    print(orderedPile)
+    return orderedPile
 }
+
+mergeSort([5675,4,32,4,67,7,5,4,32,3,5,767,87,6])
