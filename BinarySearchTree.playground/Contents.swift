@@ -4,8 +4,11 @@ public class BinarySearchTreeNode<T: Comparable> {
     
     //variables that reference other Nodes private set keeps the user from adding it incorrectly but let them look at it
     private (set) public var value: T
+    
     private (set) public var parentNode: BinarySearchTreeNode?
+    
     private (set) public var leftNode: BinarySearchTreeNode?
+    
     private (set) public var rightNode: BinarySearchTreeNode?
     
     public init(value: T) {
@@ -28,5 +31,24 @@ public class BinarySearchTreeNode<T: Comparable> {
         return parentNode?.rightNode === self
     }
     
+    public var hasLeftChild: Bool {
+        return leftNode != nil
+    }
+    
+    public var hasRightChild: Bool {
+        return rightNode != nil
+    }
+    
+    public var hasAnyChild: Bool {
+        return hasLeftChild || hasRightChild
+    }
+    
+    public var hasBothChildren: Bool {
+        return hasRightChild && hasLeftChild
+    }
+    
+    public var count: Int {
+        return(leftNode?.count ?? 0) + 1 + (rightNode?.count ?? 0)
+    }
     
 }
