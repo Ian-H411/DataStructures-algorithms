@@ -80,6 +80,25 @@ public class BinarySearchTreeNode<T: Comparable> {
         }
     }
     
+    /// Searches for a given value if duplicate values exist this will return the "Highest value"
+    public func search(value: T) -> BinarySearchTreeNode? {
+        if value < self.value {
+            return leftNode?.search(value: value)
+        } else if value > self.value {
+            return rightNode?.search(value: value)
+        } else {
+            return self
+        }
+    }
+    
+    ///applies a function to the given BST
+    public func traverseInOrder(process: (T) -> Void) {
+        leftNode?.traverseInOrder(process: process)
+        process(value)
+        rightNode?.traverseInOrder(process: process)
+    }
+    
+    
     
 }
 
