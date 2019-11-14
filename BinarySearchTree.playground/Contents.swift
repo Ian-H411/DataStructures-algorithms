@@ -15,10 +15,21 @@ public class BinarySearchTreeNode<T: Comparable> {
         self.value = value
     }
     
+    /// allows for an array to be used to create a BST
+    public convenience init(array: [T]) {
+        precondition(array.count > 0)
+        self.init(value: array.first!)
+        for value in array.dropFirst() {
+            insert(value: value)
+        }
+    }
+    
+    ///Returns a boolian indicating if the value is the root node of the tree
     public var isRoot: Bool {
         return parentNode == nil
     }
     
+    ///returns a boolian indicating if the value is at the bottom of the tree
     public var isLeaf: Bool {
         return leftNode == nil && rightNode == nil
     }
@@ -51,4 +62,25 @@ public class BinarySearchTreeNode<T: Comparable> {
         return(leftNode?.count ?? 0) + 1 + (rightNode?.count ?? 0)
     }
     
+    public func insert(value: T) {
+        if value < self.value {
+            if let left = leftNode {
+                left.insert(value: value)
+            } else {
+                leftNode = BinarySearchTreeNode(value: value)
+                leftNode?.parentNode = self
+            }
+        }else {
+            if let right = rightNode {
+                right.insert(value: value)
+            } else {
+                rightNode = BinarySearchTreeNode(value: value)
+                rightNode?.parentNode = self
+            }
+        }
+    }
+    
+    
 }
+
+
