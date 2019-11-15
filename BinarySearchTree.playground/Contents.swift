@@ -98,8 +98,54 @@ public class BinarySearchTreeNode<T: Comparable> {
         rightNode?.traverseInOrder(process: process)
     }
     
+    private func reconnectParentTo(node: BinarySearchTreeNode?) {
+        if let parent = parentNode {
+            if isLeftChild {
+                parent.leftNode = node
+            } else {
+                parent.rightNode = node
+            }
+            node?.parentNode = parentNode
+        }
+    }
     
+    ///Finds the max value of the tree by tunnelling down the right side of the tree
+    public func maximumValue() -> BinarySearchTreeNode {
+        var node = self
+        while let next = node.rightNode {
+            node = next
+        }
+        return node
+    }
     
+    public func minimumValue() -> BinarySearchTreeNode {
+        var node = self
+        while let next = node.leftNode {
+            node = next
+        }
+        return node
+    }
+    
+    @discardableResult public func remove() -> BinarySearchTreeNode? {
+        let replacement: BinarySearchTreeNode?
+        if let right = rightNode {
+            replacement = right.minimumValue()
+        } else if let left = leftNode {
+            replacement = left.maximumValue()
+        } else {
+            replacement = nil
+        }
+        replacement?.remove()
+        replacement?.rightNode = rightNode
+        replacement?.leftNode = leftNode
+        rightNode?.parentNode = replacement
+        leftNode?.parentNode = replacement
+        reconnectParentTo(node: replacement)
+        parentNode = nil
+        leftNode = nil
+        rightNode = nil
+        return replacement
+    }
 }
 
 
