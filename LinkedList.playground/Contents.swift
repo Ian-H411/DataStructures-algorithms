@@ -32,4 +32,15 @@ public class LinkedList<T> {
         }
         return node
     }
+    
+    public func append(value: T) {
+        let newNode = Node(value: value)
+        if let lastNode = last {
+            newNode.previous = lastNode
+            lastNode.next = newNode
+        } else {
+            head = newNode
+        }
+    }
+    
 }
