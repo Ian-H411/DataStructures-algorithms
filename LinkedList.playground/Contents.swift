@@ -43,4 +43,8 @@ public class LinkedList<T> {
         }
     }
     
+    public func node(atIndex index: Int) {
+        
+    }
+    
 }
