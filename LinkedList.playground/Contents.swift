@@ -43,4 +43,34 @@ public class LinkedList<T> {
         }
     }
     
+    public func node(atIndex index: Int) -> Node? {
+        if index == 0 {
+            return head!
+        } else {
+            var node = head!.next
+            for _ in 1..<index {
+                node = node?.next
+                if node == nil {
+                    break
+                }
+            }
+            return node
+        }
+    }
+    
+    public func insertNode(_ node: Node, atIndex index: Int) {
+        if index == 0 {
+            node.next = head
+            head?.previous = node
+            head = node
+        } else  {
+            let prev = self.node(atIndex: index - 1)
+            let next = prev?.next
+            node.previous = prev
+            node.next = prev?.next
+            prev?.next = node
+            next?.previous = node
+        }
+    }
+    
 }
