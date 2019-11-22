@@ -58,4 +58,19 @@ public class LinkedList<T> {
         }
     }
     
+    public func insertNode(_ node: Node, atIndex index: Int) {
+        if index == 0 {
+            node.next = head
+            head?.previous = node
+            head = node
+        } else  {
+            let prev = self.node(atIndex: index - 1)
+            let next = prev?.next
+            node.previous = prev
+            node.next = prev?.next
+            prev?.next = node
+            next?.previous = node
+        }
+    }
+    
 }
