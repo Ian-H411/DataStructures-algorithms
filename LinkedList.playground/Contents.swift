@@ -43,8 +43,19 @@ public class LinkedList<T> {
         }
     }
     
-    public func node(atIndex index: Int) {
-        
+    public func node(atIndex index: Int) -> Node? {
+        if index == 0 {
+            return head!
+        } else {
+            var node = head!.next
+            for _ in 1..<index {
+                node = node?.next
+                if node == nil {
+                    break
+                }
+            }
+            return node
+        }
     }
     
 }
